@@ -10,7 +10,6 @@
     
     <!-- Three.js for 3D visualization -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     
     <!-- Google Fonts: Inter for UI, Amiri for Arabic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -219,7 +218,7 @@
                     <p class="text-sm text-gray-200 mt-1">Meningkatkan imunitas mukosa mulut untuk mencegah infeksi.</p>
                 </div>
 
-                <div class="absolute top-10 right-10 md:top-1/2 md:right-10 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 max-w-[200px] float-anim" style="animation-delay: 0.5s;">
+                <div class="absolute top-5 right-5 md:top-[30%] md:right-10 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 max-w-[200px] float-anim" style="animation-delay: 0.5s;">
                     <h4 class="font-bold text-pome-300">Flavonoid</h4>
                     <p class="text-sm text-gray-200 mt-1">Merusak dinding sel <i>Streptococcus mutans</i> penyebab karies.</p>
                 </div>
@@ -311,7 +310,7 @@
                 <p class="italic text-gray-700 mb-6 border-r-4 border-emerald-500 pr-4 py-1 text-right bg-white">“Dan Dialah yang menurunkan air dari langit, lalu Kami tumbuhkan dengan air itu segala macam tumbuh-tumbuhan… serta zaitun dan delima yang serupa bentuk dan warnanya tetapi berbeda rasanya.” <br><span class="text-sm font-normal">(Kementerian Agama RI, 2019)</span></p>
 
                 <div class="space-y-4 text-gray-600 leading-relaxed text-sm md:text-base">
-                    <p><strong class="text-gray-800">Tafsir Al-Misbah:</strong> Menurut *Tafsir Al-Misbah*, ayat tersebut menjelaskan tanda-tanda kekuasaan Allah SWT melalui penciptaan berbagai tumbuhan yang memiliki bentuk serupa namun manfaat dan rasa yang berbeda. Delima menjadi salah satu buah yang disebut karena kandungan manfaatnya yang besar bagi manusia, baik sebagai sumber nutrisi maupun kesehatan (Shihab, 2002).</p>
+                    <p><strong class="text-gray-800">Tafsir Al-Misbah:</strong> Menurut Tafsir Al-Misbah, ayat tersebut menjelaskan tanda-tanda kekuasaan Allah SWT melalui penciptaan berbagai tumbuhan yang memiliki bentuk serupa namun manfaat dan rasa yang berbeda. Delima menjadi salah satu buah yang disebut karena kandungan manfaatnya yang besar bagi manusia, baik sebagai sumber nutrisi maupun kesehatan (Shihab, 2002).</p>
                 </div>
             </div>
 
@@ -428,26 +427,21 @@
                 pomeGroup.add(crownMesh);
             }
 
-            // Mencoba memuat file GLB 3D Model eksternal
-            const loader = new THREE.GLTFLoader();
+            // Mencoba memuat file JSON 3D Model eksternal
+            const loader = new THREE.ObjectLoader();
             loader.load(
-                'pomegranate.glb', // Nama file GLB yang dicari
-                function (gltf) {
-                    // Jika file berhasil dimuat
-                    console.log('Model 3D GLB berhasil dimuat.');
-                    const glbModel = gltf.scene;
-                    
-                    // Anda bisa mengatur skala model di sini jika ukurannya terlalu besar/kecil
-                    // glbModel.scale.set(1, 1, 1); 
-                    
-                    pomeGroup.add(glbModel);
+                'pomegranate_threejs_model.json', // Nama file JSON yang dicari
+                function (obj) {
+                    // Jika file JSON berhasil dimuat
+                    console.log('Model 3D JSON berhasil dimuat.');
+                    pomeGroup.add(obj);
                 },
                 function (xhr) {
                     // Proses loading
                 },
                 function (err) {
-                    // Jika file gagal dimuat / belum ada, gunakan model bawaan
-                    console.warn('File pomegranate.glb tidak ditemukan/gagal dimuat. Menggunakan model bawaan (fallback).');
+                    // Jika file JSON gagal dimuat / belum ada, gunakan model bawaan
+                    console.warn('File pomegranate_threejs_model.json tidak ditemukan/gagal dimuat. Menggunakan model bawaan (fallback).');
                     createFallbackModel();
                 }
             );
