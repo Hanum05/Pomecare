@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POMECARE - Fortified Fruit Leather Buah Delima</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Three.js for 3D visualization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    
+    <!-- Google Fonts: Inter for UI, Amiri for Arabic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        arabic: ['Amiri', 'serif'],
+                    },
+                    colors: {
+                        pome: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Animations & Styles */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .arabic-text {
+            line-height: 2.2;
+            direction: rtl;
+        }
+        /* Style for image fallbacks to keep layout clean if image is missing */
+        img {
+            text-indent: -10000px;
+            background-color: #ffe4e6; /* pome-100 */
+        }
+        /* Floating animation for 3D elements */
+        .float-anim {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-slate-50 antialiased overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 glass-effect transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                    <!-- Fake Logo -->
+                    <div class="w-10 h-10 bg-pome-700 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-pome-200">
+                        P
+                    </div>
+                    <span class="font-bold text-2xl tracking-tight text-pome-800">POMECARE</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-pome-700 font-medium transition">Beranda</a>
+                    <a href="#produk" class="text-gray-600 hover:text-pome-700 font-medium transition">Produk</a>
+                    <a href="#kandungan" class="text-gray-600 hover:text-pome-700 font-medium transition">Kandungan 3D</a>
+                    <a href="#alur" class="text-gray-600 hover:text-pome-700 font-medium transition">Mekanisme</a>
+                    <a href="#dalil" class="text-gray-600 hover:text-pome-700 font-medium transition">Dalil</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-pome-700 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 px-4 py-4 space-y-3 shadow-lg">
+            <a href="#home" class="block text-gray-600 hover:text-pome-700 font-medium">Beranda</a>
+            <a href="#produk" class="block text-gray-600 hover:text-pome-700 font-medium">Produk</a>
+            <a href="#kandungan" class="block text-gray-600 hover:text-pome-700 font-medium">Kandungan 3D</a>
+            <a href="#alur" class="block text-gray-600 hover:text-pome-700 font-medium">Mekanisme</a>
+            <a href="#dalil" class="block text-gray-600 hover:text-pome-700 font-medium">Dalil</a>
+        </div>
+    </nav>
+
+    <section id="home" class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+        <!-- Background Decoration -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[500px] h-[500px] bg-pome-100 rounded-full blur-3xl opacity-50 -z-10"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[400px] h-[400px] bg-pome-200 rounded-full blur-3xl opacity-40 -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <span class="inline-block py-1 px-3 rounded-full bg-pome-100 text-pome-800 text-sm font-semibold tracking-wider mb-4 border border-pome-200">
+                        Inovasi Pangan Fungsional
+                    </span>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+                        Menjaga Senyum Anak dengan <span class="text-transparent bg-clip-text bg-gradient-to-r from-pome-600 to-pome-800">POMECARE</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+                        Inovasi Fortified Fruit Leather Buah Delima sebagai Pangan Fungsional Antibakteri <i>Streptococcus mutans</i> dalam Upaya <i>Hifdzun Nafs</i> melalui Pencegahan Karies Gigi Pediatrik.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#produk" class="px-8 py-4 bg-pome-700 text-white rounded-full font-semibold shadow-lg shadow-pome-500/30 hover:bg-pome-800 transition transform hover:-translate-y-1">
+                            Lihat Produk
+                        </a>
+                        <a href="#kandungan" class="px-8 py-4 bg-white text-pome-700 border border-pome-200 rounded-full font-semibold shadow-sm hover:bg-pome-50 transition">
+                            Kandungan Delima
+                        </a>
+                    </div>
+                </div>
+                <div class="relative flex justify-center lg:justify-end fade-in float-anim" style="animation-delay: 0.2s;">
+                    <!-- Gambar Hero -->
+                    <img src="hero pomecare.png" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/600x500/be123c/ffffff?text=hero+pomecare.png';" 
+                         alt="Pomecare Hero" 
+                         class="w-full max-w-md lg:max-w-lg object-contain rounded-3xl drop-shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="produk" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Desain & Kemasan</h2>
+                <div class="w-24 h-1 bg-pome-600 mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 text-lg">Pomecare dirancang khusus agar menarik bagi anak-anak namun tetap menjaga kualitas nutrisi antibakteri di dalamnya.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Packaging -->
+                <div class="bg-slate-50 rounded-3xl p-8 border border-gray-100 shadow-xl shadow-gray-200/50 hover:shadow-pome-100 transition duration-300 group">
+                    <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-6 flex items-center justify-center bg-white">
+                        <img src="packaging pomecare.png" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x450/fecdd3/9f1239?text=packaging+pomecare.png';" 
+                             alt="Packaging Pomecare" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Kemasan POMECARE</h3>
+                    <p class="text-gray-600">Kemasan higienis yang mudah dibawa, dirancang dengan material aman makanan (food grade) untuk menjaga kesegaran dan stabilitas senyawa antibakteri.</p>
+                </div>
+
+                <!-- Isi Produk (Fruit Leather) -->
+                <div class="bg-slate-50 rounded-3xl p-8 border border-gray-100 shadow-xl shadow-gray-200/50 hover:shadow-pome-100 transition duration-300 group">
+                    <div class="aspect-[4/3] rounded-2xl overflow-hidden mb-6 flex items-center justify-center bg-white">
+                        <img src="isi pomecare.png" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x450/fecdd3/9f1239?text=isi+pomecare.png';" 
+                             alt="Isi Pomecare" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Isi Fruit Leather</h3>
+                    <p class="text-gray-600">Tekstur kenyal yang disukai anak-anak, terbuat dari ekstrak delima asli yang difortifikasi, berperan aktif menghambat pertumbuhan <i>Streptococcus mutans</i>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kandungan" class="py-20 bg-pome-900 relative overflow-hidden text-white">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Kandungan Buah Delima (3D)</h2>
+                <div class="w-24 h-1 bg-pome-400 mx-auto rounded-full mb-6"></div>
+                <p class="text-pome-100 text-lg">Geser/Putar model 3D di bawah ini untuk melihat keistimewaan buah delima sebagai agen antibakteri alami.</p>
+            </div>
+
+            <div class="relative w-full h-[500px] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-b from-pome-800 to-pome-950 border border-pome-700">
+                <!-- 3D Canvas Container -->
+                <div id="three-container" class="w-full h-full cursor-move"></div>
+                
+                <!-- Floating Labels overlays -->
+                <div class="absolute top-10 left-10 md:top-20 md:left-20 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 max-w-[200px] float-anim" style="animation-delay: 0s;">
+                    <h4 class="font-bold text-pome-300">Polifenol & Tanin</h4>
+                    <p class="text-sm text-gray-200 mt-1">Menghambat enzim glucosyltransferase dari bakteri pembentuk plak.</p>
+                </div>
+
+                <div class="absolute bottom-10 right-10 md:bottom-20 md:right-20 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 max-w-[200px] float-anim" style="animation-delay: 1s;">
+                    <h4 class="font-bold text-pome-300">Vitamin C</h4>
+                    <p class="text-sm text-gray-200 mt-1">Meningkatkan imunitas mukosa mulut untuk mencegah infeksi.</p>
+                </div>
+
+                <div class="absolute top-10 right-10 md:top-1/2 md:right-10 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 max-w-[200px] float-anim" style="animation-delay: 0.5s;">
+                    <h4 class="font-bold text-pome-300">Flavonoid</h4>
+                    <p class="text-sm text-gray-200 mt-1">Merusak dinding sel <i>Streptococcus mutans</i> penyebab karies.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="alur" class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <img src="alur perlindungan gigi.png" 
+                         onerror="this.onerror=null; this.src='https://placehold.co/800x600/fecdd3/9f1239?text=alur+perlindungan+gigi.png';" 
+                         alt="Alur Perlindungan Gigi" 
+                         class="w-full rounded-3xl shadow-2xl shadow-gray-300/50 border border-white">
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Bagaimana POMECARE Melindungi Gigi?</h2>
+                    <div class="w-20 h-1 bg-pome-600 rounded-full mb-8"></div>
+                    
+                    <div class="space-y-8">
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-12 h-12 rounded-full bg-pome-100 flex items-center justify-center text-pome-700 font-bold text-xl border border-pome-200">1</div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-900 mb-2">Konsumsi Fruit Leather</h4>
+                                <p class="text-gray-600">Saat anak mengunyah fruit leather, senyawa bioaktif dari ekstrak delima mulai terlepas dan bercampur dengan air liur.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-12 h-12 rounded-full bg-pome-100 flex items-center justify-center text-pome-700 font-bold text-xl border border-pome-200">2</div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-900 mb-2">Pelepasan Agen Antibakteri</h4>
+                                <p class="text-gray-600">Senyawa polifenol dan flavonoid secara aktif menargetkan dan mengikat bakteri <i>Streptococcus mutans</i> di rongga mulut.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="w-12 h-12 rounded-full bg-pome-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-pome-300">3</div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-gray-900 mb-2">Pencegahan Karies (Hifdzun Nafs)</h4>
+                                <p class="text-gray-600">Terhambatnya pembentukan plak gigi dan produksi asam oleh bakteri, sehingga enamel gigi tetap terjaga sebagai bentuk pemeliharaan jiwa/fisik (Hifdzun Nafs).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dalil" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pandangan Islam (Dalil & Tafsir)</h2>
+                <div class="w-24 h-1 bg-emerald-600 mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 text-lg">Keistimewaan buah delima sebagai nikmat Allah SWT yang sarat manfaat.</p>
+            </div>
+
+            <!-- Surat Ar-Rahman -->
+            <div class="bg-slate-50 rounded-3xl p-8 md:p-10 mb-10 border border-gray-100 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-100 rounded-bl-full opacity-50"></div>
+                
+                <h3 class="text-xl font-bold text-emerald-800 mb-6">QS. Ar-Rahman: 68</h3>
+                <div class="text-right mb-6">
+                    <p class="text-3xl md:text-4xl font-arabic text-gray-900 arabic-text">فِيهِمَا فَاكِهَةٌ وَنَخْلٌ وَرُمَّانٌ</p>
+                </div>
+                <p class="italic text-gray-700 mb-6 border-l-4 border-emerald-500 pl-4 py-1 bg-white">“Di dalam kedua surga itu ada buah-buahan, kurma, dan delima.” <br><span class="text-sm font-normal">(Kementerian Agama RI, 2019)</span></p>
+                
+                <div class="space-y-4 text-gray-600 leading-relaxed text-sm md:text-base">
+                    <p><strong class="text-gray-800">Tafsir Al-Misbah:</strong> Menurut Quraish Shihab, penyebutan kurma dan delima secara khusus setelah kata “buah-buahan” menunjukkan bahwa kedua buah tersebut memiliki keistimewaan, nilai gizi, dan manfaat yang besar bagi kehidupan manusia. Delima dipandang sebagai buah yang tidak hanya memberikan kenikmatan, tetapi juga mengandung manfaat kesehatan sehingga menjadi salah satu simbol nikmat Allah SWT kepada manusia (Shihab, 2002).</p>
+                    <p><strong class="text-gray-800">Tafsir Al-Munir:</strong> Wahbah Az-Zuhaili menjelaskan bahwa delima disebut secara khusus karena memiliki manfaat besar sebagai sumber pangan dan kesehatan. Penyebutan buah delima dalam Al-Qur’an menunjukkan kebesaran nikmat Allah SWT melalui tumbuhan yang bermanfaat bagi tubuh manusia serta menjadi anjuran untuk memanfaatkan makanan yang baik dan menyehatkan (Az-Zuhaili, 2013).</p>
+                </div>
+            </div>
+
+            <!-- Surat Al-An'am -->
+            <div class="bg-slate-50 rounded-3xl p-8 md:p-10 border border-gray-100 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-32 h-32 bg-emerald-100 rounded-br-full opacity-50"></div>
+
+                <h3 class="text-xl font-bold text-emerald-800 mb-6 text-right">QS. Al-An’am: 99</h3>
+                <div class="text-right mb-6">
+                    <p class="text-3xl md:text-4xl font-arabic text-gray-900 arabic-text">وَهُوَ الَّذِي أَنْزَلَ مِنَ السَّمَاءِ مَاءً فَأَخْرَجْنَا بِهِ نَبَاتَ كُلِّ شَيْءٍ ... وَالزَّيْتُونَ وَالرُّمَّانَ مُشْتَبِهًا وَغَيْرَ مُتَشَابِهٍ</p>
+                </div>
+                <p class="italic text-gray-700 mb-6 border-r-4 border-emerald-500 pr-4 py-1 text-right bg-white">“Dan Dialah yang menurunkan air dari langit, lalu Kami tumbuhkan dengan air itu segala macam tumbuh-tumbuhan… serta zaitun dan delima yang serupa bentuk dan warnanya tetapi berbeda rasanya.” <br><span class="text-sm font-normal">(Kementerian Agama RI, 2019)</span></p>
+
+                <div class="space-y-4 text-gray-600 leading-relaxed text-sm md:text-base">
+                    <p><strong class="text-gray-800">Tafsir Al-Misbah:</strong> Menurut *Tafsir Al-Misbah*, ayat tersebut menjelaskan tanda-tanda kekuasaan Allah SWT melalui penciptaan berbagai tumbuhan yang memiliki bentuk serupa namun manfaat dan rasa yang berbeda. Delima menjadi salah satu buah yang disebut karena kandungan manfaatnya yang besar bagi manusia, baik sebagai sumber nutrisi maupun kesehatan (Shihab, 2002).</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-16 pb-8 border-t-4 border-pome-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-12">
+                <div class="md:col-span-5">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-10 h-10 bg-pome-700 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                            P
+                        </div>
+                        <span class="font-bold text-2xl tracking-tight text-white">POMECARE</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        Inovasi Fortified Fruit Leather Buah Delima sebagai Pangan Fungsional Antibakteri <i>Streptococcus mutans</i> dalam Upaya <i>Hifdzun Nafs</i> melalui Pencegahan Karies Gigi Pediatrik.
+                    </p>
+                </div>
+                <div class="md:col-span-7">
+                    <h4 class="text-lg font-bold mb-6 text-white border-b border-gray-700 pb-2">Daftar Pustaka</h4>
+                    <ul class="space-y-3 text-sm text-gray-400 pl-5 list-disc marker:text-pome-600">
+                        <li>Az-Zuhaili, W. (2013). <i>Tafsir Al-Munir</i>. Jakarta: Gema Insani.</li>
+                        <li>Kementerian Agama Republik Indonesia. (2019). <i>Al-Qur’an dan Terjemahannya</i>. Jakarta: Lajnah Pentashihan Mushaf Al-Qur’an.</li>
+                        <li>M. Quraish Shihab. (2002). <i>Tafsir Al-Misbah: Pesan, Kesan, dan Keserasian Al-Qur’an</i>. Jakarta: Lentera Hati.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2026 POMECARE Project. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md', 'bg-white/95');
+                navbar.classList.remove('glass-effect');
+            } else {
+                navbar.classList.remove('shadow-md', 'bg-white/95');
+                navbar.classList.add('glass-effect');
+            }
+        });
+
+        // --- Three.js 3D Pomegranate Setup ---
+        window.addEventListener('load', init3D);
+
+        function init3D() {
+            const container = document.getElementById('three-container');
+            if (!container || typeof THREE === 'undefined') return;
+
+            // Scene setup
+            const scene = new THREE.Scene();
+            
+            // Camera setup
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.z = 8;
+
+            // Renderer setup
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            // Lighting to make it look organic and juicy
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const pointLight1 = new THREE.PointLight(0xffaaaa, 0.8);
+            pointLight1.position.set(5, 5, 5);
+            scene.add(pointLight1);
+
+            const pointLight2 = new THREE.PointLight(0xaaaaff, 0.4);
+            pointLight2.position.set(-5, -5, -5);
+            scene.add(pointLight2);
+
+            // Create Pomegranate Group
+            const pomeGroup = new THREE.Group();
+            scene.add(pomeGroup);
+
+            // Fungsi untuk membuat 3D model bawaan (fallback) jika file JSON tidak ada
+            function createFallbackModel() {
+                // 1. The Main Body (Sphere)
+                // Using a slightly bumpy sphere to simulate skin
+                const bodyGeo = new THREE.SphereGeometry(2.5, 64, 64);
+                const bodyMat = new THREE.MeshStandardMaterial({ 
+                    color: 0x9f1239, // Deep red (pome-800)
+                    roughness: 0.3,
+                    metalness: 0.1,
+                });
+                const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
+                pomeGroup.add(bodyMesh);
+
+                // 2. The Crown (Cylinder)
+                const crownGeo = new THREE.CylinderGeometry(0.6, 0.3, 0.6, 6);
+                const crownMat = new THREE.MeshStandardMaterial({
+                    color: 0x881337,
+                    roughness: 0.6,
+                });
+                const crownMesh = new THREE.Mesh(crownGeo, crownMat);
+                crownMesh.position.y = 2.4;
+                pomeGroup.add(crownMesh);
+            }
+
+            // Mencoba memuat file GLB 3D Model eksternal
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                'pomegranate.glb', // Nama file GLB yang dicari
+                function (gltf) {
+                    // Jika file berhasil dimuat
+                    console.log('Model 3D GLB berhasil dimuat.');
+                    const glbModel = gltf.scene;
+                    
+                    // Anda bisa mengatur skala model di sini jika ukurannya terlalu besar/kecil
+                    // glbModel.scale.set(1, 1, 1); 
+                    
+                    pomeGroup.add(glbModel);
+                },
+                function (xhr) {
+                    // Proses loading
+                },
+                function (err) {
+                    // Jika file gagal dimuat / belum ada, gunakan model bawaan
+                    console.warn('File pomegranate.glb tidak ditemukan/gagal dimuat. Menggunakan model bawaan (fallback).');
+                    createFallbackModel();
+                }
+            );
+
+            // Interaction variables
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+
+            // Mouse Events
+            container.addEventListener('mousedown', (e) => {
+                isDragging = true;
+            });
+            
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+            
+            window.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    const deltaMove = {
+                        x: e.offsetX - previousMousePosition.x,
+                        y: e.offsetY - previousMousePosition.y
+                    };
+
+                    pomeGroup.rotation.y += deltaMove.x * 0.01;
+                    pomeGroup.rotation.x += deltaMove.y * 0.01;
+                }
+                previousMousePosition = { x: e.offsetX, y: e.offsetY };
+            });
+
+            // Touch Events for Mobile
+            container.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }, {passive: true});
+
+            window.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (isDragging) {
+                    const deltaMove = {
+                        x: e.touches[0].clientX - previousMousePosition.x,
+                        y: e.touches[0].clientY - previousMousePosition.y
+                    };
+
+                    pomeGroup.rotation.y += deltaMove.x * 0.01;
+                    pomeGroup.rotation.x += deltaMove.y * 0.01;
+                }
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }, {passive: true});
+
+
+            // Animation Loop
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Auto rotate slowly if not interacting
+                if (!isDragging) {
+                    pomeGroup.rotation.y += 0.003;
+                    pomeGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.1; // Gentle bobbing
+                }
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+
+            // Handle Resize
+            window.addEventListener('resize', () => {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            });
+        }
+    </script>
+</body>
+</html>
