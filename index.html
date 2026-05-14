@@ -8,9 +8,6 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Three.js for 3D visualization -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    
     <!-- Google Fonts: Inter for UI, Amiri for Arabic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -200,12 +197,14 @@
             <div class="text-center max-w-3xl mx-auto mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Kandungan Buah Delima (3D)</h2>
                 <div class="w-24 h-1 bg-pome-400 mx-auto rounded-full mb-6"></div>
-                <p class="text-pome-100 text-lg">Geser/Putar model 3D di bawah ini untuk melihat keistimewaan buah delima sebagai agen antibakteri alami.</p>
             </div>
 
             <div class="relative w-full h-[500px] rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-b from-pome-800 to-pome-950 border border-pome-700">
-                <!-- 3D Canvas Container -->
-                <div id="three-container" class="w-full h-full cursor-move"></div>
+                <!-- Fake 3D Video Container -->
+                <video autoplay loop muted playsinline class="w-full h-full object-cover pointer-events-none opacity-90">
+                    <source src="pomegranate_3d_video.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung tag video.
+                </video>
                 
                 <!-- Floating Labels overlays -->
                 <div class="absolute top-10 left-10 md:top-20 md:left-20 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 max-w-[200px] float-anim" style="animation-delay: 0s;">
@@ -218,10 +217,91 @@
                     <p class="text-sm text-gray-200 mt-1">Meningkatkan imunitas mukosa mulut untuk mencegah infeksi.</p>
                 </div>
 
-                <div class="absolute top-5 right-5 md:top-[30%] md:right-10 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 max-w-[200px] float-anim" style="animation-delay: 0.5s;">
+                <div class="absolute top-2 right-5 md:top-[20%] md:right-10 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/20 max-w-[200px] float-anim" style="animation-delay: 0.5s;">
                     <h4 class="font-bold text-pome-300">Flavonoid</h4>
                     <p class="text-sm text-gray-200 mt-1">Merusak dinding sel <i>Streptococcus mutans</i> penyebab karies.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proses" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="inline-block py-1 px-3 rounded-full bg-pome-100 text-pome-800 text-sm font-semibold tracking-wider mb-4 border border-pome-200">Tahapan Inovasi</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Proses Pembuatan POMECARE</h2>
+                <div class="w-24 h-1 bg-pome-600 mx-auto rounded-full mb-6"></div>
+                <p class="text-gray-600 text-lg">Setiap lembar POMECARE diproses melalui standar higienis yang ketat untuk menjaga kualitas bioaktif dari ekstrak buah delima.</p>
+            </div>
+
+            <!-- Menggunakan flex wrap dan justify-center agar 5 item terlihat proporsional dan rapi di tengah pada baris kedua -->
+            <div class="flex flex-wrap justify-center gap-8">
+                
+                <!-- Step 1 -->
+                <div class="relative bg-slate-50 rounded-3xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]">
+                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-pome-700 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg border-4 border-white z-10 group-hover:scale-110 transition-transform">1</div>
+                    <div class="h-40 bg-white rounded-2xl mb-6 overflow-hidden flex items-center justify-center border border-gray-100">
+                         <img src="pengolahan_awal.jpg" 
+                              onerror="this.onerror=null; this.src='https://placehold.co/400x300/fecdd3/9f1239?text=Pengolahan+Awal';" 
+                              alt="Pengolahan Awal" 
+                              class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Pengolahan Awal</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Pengolahan awal buah delima segar dengan mencuci, memotong, dan memisahkan isi (arils) yang kaya akan polifenol dari kulitnya.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative bg-slate-50 rounded-3xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]">
+                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-pome-700 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg border-4 border-white z-10 group-hover:scale-110 transition-transform">2</div>
+                    <div class="h-40 bg-white rounded-2xl mb-6 overflow-hidden flex items-center justify-center border border-gray-100">
+                         <img src="pembuatan_puree.jpg" 
+                              onerror="this.onerror=null; this.src='https://placehold.co/400x300/fecdd3/9f1239?text=Pembuatan+Puree';" 
+                              alt="Pembuatan Puree" 
+                              class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Penghalusan (Puree)</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Penghalusan isi buah delima menjadi <i>puree</i> menggunakan blender untuk mengekstraksi agen antibakteri alami secara maksimal.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative bg-slate-50 rounded-3xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]">
+                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-pome-700 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg border-4 border-white z-10 group-hover:scale-110 transition-transform">3</div>
+                    <div class="h-40 bg-white rounded-2xl mb-6 overflow-hidden flex items-center justify-center border border-gray-100">
+                         <img src="fortifikasi.jpg" 
+                              onerror="this.onerror=null; this.src='https://placehold.co/400x300/fecdd3/9f1239?text=Fortifikasi';" 
+                              alt="Fortifikasi" 
+                              class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Fortifikasi Nutrisi</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Fortifikasi nutrisi pada puree dengan penambahan pemanis alami pendukung yang aman bagi gigi, seperti madu murni atau ekstrak stevia.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="relative bg-slate-50 rounded-3xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]">
+                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-pome-700 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg border-4 border-white z-10 group-hover:scale-110 transition-transform">4</div>
+                    <div class="h-40 bg-white rounded-2xl mb-6 overflow-hidden flex items-center justify-center border border-gray-100">
+                         <img src="pembentukan.jpg" 
+                              onerror="this.onerror=null; this.src='https://placehold.co/400x300/fecdd3/9f1239?text=Pembentukan';" 
+                              alt="Pembentukan Lembaran" 
+                              class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Pembentukan Lembaran</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Pembentukan lembaran <i>(fruit leather)</i> dengan meratakan <i>puree</i> yang telah difortifikasi ke atas loyang pencetak secara presisi.</p>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="relative bg-slate-50 rounded-3xl p-6 border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]">
+                    <div class="absolute -top-6 -left-6 w-12 h-12 bg-pome-700 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg border-4 border-white z-10 group-hover:scale-110 transition-transform">5</div>
+                    <div class="h-40 bg-white rounded-2xl mb-6 overflow-hidden flex items-center justify-center border border-gray-100">
+                         <img src="pengeringan.jpg" 
+                              onerror="this.onerror=null; this.src='https://placehold.co/400x300/fecdd3/9f1239?text=Pengeringan+Oven';" 
+                              alt="Pengeringan" 
+                              class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Proses Pengeringan</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Pengeringan <i>(dehydration process)</i> dengan oven pada suhu rendah yang terkontrol untuk menjaga stabilitas agen antibakteri di dalamnya.</p>
+                </div>
+
             </div>
         </div>
     </section>
@@ -366,160 +446,6 @@
                 navbar.classList.add('glass-effect');
             }
         });
-
-        // --- Three.js 3D Pomegranate Setup ---
-        window.addEventListener('load', init3D);
-
-        function init3D() {
-            const container = document.getElementById('three-container');
-            if (!container || typeof THREE === 'undefined') return;
-
-            // Scene setup
-            const scene = new THREE.Scene();
-            
-            // Camera setup
-            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-            camera.position.z = 8;
-
-            // Renderer setup
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(window.devicePixelRatio);
-            container.appendChild(renderer.domElement);
-
-            // Lighting to make it look organic and juicy
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambientLight);
-
-            const pointLight1 = new THREE.PointLight(0xffaaaa, 0.8);
-            pointLight1.position.set(5, 5, 5);
-            scene.add(pointLight1);
-
-            const pointLight2 = new THREE.PointLight(0xaaaaff, 0.4);
-            pointLight2.position.set(-5, -5, -5);
-            scene.add(pointLight2);
-
-            // Create Pomegranate Group
-            const pomeGroup = new THREE.Group();
-            scene.add(pomeGroup);
-
-            // Fungsi untuk membuat 3D model bawaan (fallback) jika file JSON tidak ada
-            function createFallbackModel() {
-                // 1. The Main Body (Sphere)
-                // Using a slightly bumpy sphere to simulate skin
-                const bodyGeo = new THREE.SphereGeometry(2.5, 64, 64);
-                const bodyMat = new THREE.MeshStandardMaterial({ 
-                    color: 0x9f1239, // Deep red (pome-800)
-                    roughness: 0.3,
-                    metalness: 0.1,
-                });
-                const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
-                pomeGroup.add(bodyMesh);
-
-                // 2. The Crown (Cylinder)
-                const crownGeo = new THREE.CylinderGeometry(0.6, 0.3, 0.6, 6);
-                const crownMat = new THREE.MeshStandardMaterial({
-                    color: 0x881337,
-                    roughness: 0.6,
-                });
-                const crownMesh = new THREE.Mesh(crownGeo, crownMat);
-                crownMesh.position.y = 2.4;
-                pomeGroup.add(crownMesh);
-            }
-
-            // Mencoba memuat file JSON 3D Model eksternal
-            const loader = new THREE.ObjectLoader();
-            loader.load(
-                'pomegranate_threejs_model.json', // Nama file JSON yang dicari
-                function (obj) {
-                    // Jika file JSON berhasil dimuat
-                    console.log('Model 3D JSON berhasil dimuat.');
-                    pomeGroup.add(obj);
-                },
-                function (xhr) {
-                    // Proses loading
-                },
-                function (err) {
-                    // Jika file JSON gagal dimuat / belum ada, gunakan model bawaan
-                    console.warn('File pomegranate_threejs_model.json tidak ditemukan/gagal dimuat. Menggunakan model bawaan (fallback).');
-                    createFallbackModel();
-                }
-            );
-
-            // Interaction variables
-            let isDragging = false;
-            let previousMousePosition = { x: 0, y: 0 };
-
-            // Mouse Events
-            container.addEventListener('mousedown', (e) => {
-                isDragging = true;
-            });
-            
-            window.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
-            
-            window.addEventListener('mousemove', (e) => {
-                if (isDragging) {
-                    const deltaMove = {
-                        x: e.offsetX - previousMousePosition.x,
-                        y: e.offsetY - previousMousePosition.y
-                    };
-
-                    pomeGroup.rotation.y += deltaMove.x * 0.01;
-                    pomeGroup.rotation.x += deltaMove.y * 0.01;
-                }
-                previousMousePosition = { x: e.offsetX, y: e.offsetY };
-            });
-
-            // Touch Events for Mobile
-            container.addEventListener('touchstart', (e) => {
-                isDragging = true;
-                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            }, {passive: true});
-
-            window.addEventListener('touchend', () => {
-                isDragging = false;
-            });
-
-            window.addEventListener('touchmove', (e) => {
-                if (isDragging) {
-                    const deltaMove = {
-                        x: e.touches[0].clientX - previousMousePosition.x,
-                        y: e.touches[0].clientY - previousMousePosition.y
-                    };
-
-                    pomeGroup.rotation.y += deltaMove.x * 0.01;
-                    pomeGroup.rotation.x += deltaMove.y * 0.01;
-                }
-                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            }, {passive: true});
-
-
-            // Animation Loop
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                // Auto rotate slowly if not interacting
-                if (!isDragging) {
-                    pomeGroup.rotation.y += 0.003;
-                    pomeGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.1; // Gentle bobbing
-                }
-                
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-
-            // Handle Resize
-            window.addEventListener('resize', () => {
-                const width = container.clientWidth;
-                const height = container.clientHeight;
-                renderer.setSize(width, height);
-                camera.aspect = width / height;
-                camera.updateProjectionMatrix();
-            });
-        }
     </script>
 </body>
 </html>
